@@ -1,6 +1,8 @@
 package io.github.ziginsider.kotlinthreaddemo
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
@@ -20,27 +22,34 @@ class MainActivity : AppCompatActivity() {
 
         val cp = ConsumerProducer()
 
+        val threadProduce = Thread(Runnable {
+            try {
+                cp.produce()
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+        })
+
+        val threadConsume = Thread(Runnable {
+            try {
+                cp.consume()
+//
+//                //set in MainThread to avoid CalledFromWrongThreadExeption
+//                Handler(Looper.getMainLooper()).post(Runnable {
+//                    textView.text = cp.list
+//                })
+
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+        })
+
+        threadProduce.start()
+        threadConsume.start()
+
         fab.setOnClickListener { view ->
 
-            val threadProduce = Thread(Runnable {
-                try {
-                    cp.produce()
-                } catch (e: InterruptedException) {
-                    e.printStackTrace()
-                }
-            })
-
-            val threadConsume = Thread(Runnable {
-                try {
-                    val value = cp.consume()
-                    textView.text = value.toString()
-                } catch (e: InterruptedException) {
-                    e.printStackTrace()
-                }
-            })
-
-            threadProduce.start()
-            threadConsume.start()
+            textView.text = cp.list
         }
     }
 
