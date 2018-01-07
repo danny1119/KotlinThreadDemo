@@ -10,6 +10,8 @@ import android.view.MenuItem
 import android.widget.TextView
 
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
+import kotlin.concurrent.scheduleAtFixedRate
 
 class MainActivity : AppCompatActivity() {
 
@@ -49,7 +51,13 @@ class MainActivity : AppCompatActivity() {
 
         fab.setOnClickListener { view ->
 
-            textView.text = cp.list
+            val timer = Timer("Schedule", true)
+            timer.scheduleAtFixedRate(1000, 1000) {
+                Handler(Looper.getMainLooper()).post(Runnable {
+                    textView.text = cp.list
+               })
+            }
+
         }
     }
 
