@@ -3,8 +3,8 @@ package io.github.ziginsider.kotlinthreaddemo
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
@@ -15,6 +15,8 @@ import kotlin.concurrent.scheduleAtFixedRate
 
 class MainActivity : AppCompatActivity() {
 
+    private val TAG = "Zig"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -22,6 +24,25 @@ class MainActivity : AppCompatActivity() {
 
         val textView : TextView = findViewById(R.id.textView)
 
+        val cp = startConsumerProducer()
+
+        repeat(5) {
+            Log.d(TAG, "Time $it ")
+        }
+
+        fab.setOnClickListener { view ->
+
+            val timer = Timer("Schedule", true)
+            timer.scheduleAtFixedRate(1000, 1000) {
+                Handler(Looper.getMainLooper()).post(Runnable {
+                    textView.text = cp.list.toString()
+               })
+            }
+
+        }
+    }
+
+    private fun startConsumerProducer(): ConsumerProducer {
         val cp = ConsumerProducer()
 
         val threadProduce = Thread(Runnable {
@@ -35,12 +56,6 @@ class MainActivity : AppCompatActivity() {
         val threadConsume = Thread(Runnable {
             try {
                 cp.consume()
-//
-//                //set in MainThread to avoid CalledFromWrongThreadExeption
-//                Handler(Looper.getMainLooper()).post(Runnable {
-//                    textView.text = cp.list
-//                })
-
             } catch (e: InterruptedException) {
                 e.printStackTrace()
             }
@@ -48,17 +63,7 @@ class MainActivity : AppCompatActivity() {
 
         threadProduce.start()
         threadConsume.start()
-
-        fab.setOnClickListener { view ->
-
-            val timer = Timer("Schedule", true)
-            timer.scheduleAtFixedRate(1000, 1000) {
-                Handler(Looper.getMainLooper()).post(Runnable {
-                    textView.text = cp.list
-               })
-            }
-
-        }
+        return cp
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
