@@ -10,6 +10,7 @@ import android.view.MenuItem
 import android.widget.TextView
 
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.concurrent.scheduleAtFixedRate
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         printFigures()
 
-        //startConcurent()
+        startConcurent(this.textView)
     }
 
     fun printFigures() {
@@ -47,12 +48,11 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun startConcurent() {
+    private fun startConcurent(textView: TextView) {
 
-        val textView : TextView = findViewById(R.id.textView)
+        //val textView : TextView = findViewById(R.id.textView)
 
         val cp = startConsumerProducer()
-
 
         fab.setOnClickListener { view ->
 
@@ -60,6 +60,7 @@ class MainActivity : AppCompatActivity() {
             timer.scheduleAtFixedRate(1000, 1000) {
                 Handler(Looper.getMainLooper()).post(Runnable {
                     textView.text = "${cp.list}"
+                    //parent.textView.text = "${cp.list}" //get null
                 })
             }
 
