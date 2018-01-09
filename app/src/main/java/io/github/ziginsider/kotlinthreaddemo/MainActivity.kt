@@ -22,24 +22,52 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        repeat(5) {
+            Log.d(TAG, "Time ${it*2} ")
+        }
+
+        fizzBuzzRightOrder()
+        fizzBuzzInverseOrder()
+
+        //startConcurent()
+    }
+
+    private fun startConcurent() {
+
         val textView : TextView = findViewById(R.id.textView)
 
         val cp = startConsumerProducer()
 
-        repeat(5) {
-            Log.d(TAG, "Time $it ")
-        }
 
         fab.setOnClickListener { view ->
 
             val timer = Timer("Schedule", true)
             timer.scheduleAtFixedRate(1000, 1000) {
                 Handler(Looper.getMainLooper()).post(Runnable {
-                    textView.text = cp.list.toString()
-               })
+                    textView.text = "${cp.list}"
+                })
             }
 
         }
+    }
+
+    private fun fizzBuzzRightOrder() {
+        for (i in 1..100) {
+            Log.d(TAG, fizzBuzz(i))
+        }
+    }
+
+    private fun fizzBuzzInverseOrder() {
+        for (i in 100 downTo 1 step 2) {
+            Log.d(TAG, fizzBuzz(i))
+        }
+    }
+
+    private fun fizzBuzz(i: Int) = when {
+        i % 15 == 0 -> "FizzBuzz "
+        i % 3 == 0 -> "Fizz "
+        i % 5 == 0 -> "Buzz "
+        else -> "$i "
     }
 
     private fun startConsumerProducer(): ConsumerProducer {
