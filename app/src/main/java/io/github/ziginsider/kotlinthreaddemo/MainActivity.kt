@@ -12,6 +12,7 @@ import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import java.util.*
+import kotlin.collections.AbstractCollection
 import kotlin.collections.ArrayList
 import kotlin.concurrent.scheduleAtFixedRate
 
@@ -59,7 +60,11 @@ class MainActivity : AppCompatActivity() {
             val timer = Timer("Schedule", true)
             timer.scheduleAtFixedRate(1000, 1000) {
                 Handler(Looper.getMainLooper()).post(Runnable {
-                    textView.text = "${cp.list}"
+                    //textView.text = "${cp.list}"
+                    textView.text = joinToString(collection = cp.list,
+                            separator = ", ",
+                            prefix = "# ",
+                            postfix = ";")
                     //parent.textView.text = "${cp.list}" //get null
                 })
             }
