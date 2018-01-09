@@ -11,6 +11,7 @@ import android.widget.TextView
 
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.concurrent.scheduleAtFixedRate
 
 class MainActivity : AppCompatActivity() {
@@ -29,7 +30,21 @@ class MainActivity : AppCompatActivity() {
         fizzBuzzRightOrder()
         fizzBuzzInverseOrder()
 
+        printFigures()
+
         //startConcurent()
+    }
+
+    fun printFigures() {
+        val list = ArrayList<Int>();
+        for (i in 0..99) {
+            list.add(i*i)
+        }
+        for((index, element) in list.withIndex()) {
+            println("$index: $element")
+        }
+
+
     }
 
     private fun startConcurent() {
