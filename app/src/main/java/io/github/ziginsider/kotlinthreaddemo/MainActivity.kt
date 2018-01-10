@@ -24,6 +24,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        print(listOf(2,7,4,2,3,1,1,5,55,4,333,4,5,7,1,1,1,444)
+                .qSort()
+                .joinToString(
+                separator = ", ",
+                prefix = "# ",
+                postfix = ";"))
+
         repeat(5) {
             Log.d(TAG, "Time ${it*2} ")
         }
@@ -34,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         printFigures()
 
         startConcurent(textView)
+
     }
 
     fun printFigures() {
@@ -44,8 +52,6 @@ class MainActivity : AppCompatActivity() {
         for((index, element) in list.withIndex()) {
             println("$index: $element")
         }
-
-
     }
 
     private fun startConcurent(textView: TextView) {

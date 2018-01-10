@@ -19,3 +19,13 @@ fun <T> Collection<T>.joinToString(
     result.append(postfix)
     return result.toString()
 }
+
+fun <T : Comparable<T>> Collection<T>.qSort(): Collection<T> =
+    if (size < 2) this
+    else {
+        val pivot = first()
+        val (smaler, greater) = drop(1).partition { it <= pivot }
+        smaler.qSort() + pivot + greater.qSort()
+    }
+
+
