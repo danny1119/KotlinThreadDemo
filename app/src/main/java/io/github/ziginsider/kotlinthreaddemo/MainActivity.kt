@@ -1,5 +1,6 @@
 package io.github.ziginsider.kotlinthreaddemo
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -24,7 +25,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        print(listOf(2,7,4,2,3,1,1,5,55,4,333,4,5,7,1,1,1,444)
+        println(MockDataProvider().data.toString())
+
+        println(listOf(2,7,4,2,3,1,1,5,55,4,333,4,5,7,1,1,1,444)
                 .qSort()
                 .joinToString(
                 separator = ", ",
