@@ -1,8 +1,10 @@
 package io.github.ziginsider.kotlinthreaddemo
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 
 /**
  * Created by zigin on 09.01.2018.
@@ -38,4 +40,7 @@ fun <T : Comparable<T>> Collection<T>.qSort(): Collection<T> =
 infix fun ViewGroup.inflate(layoutResId: Int): View =
         LayoutInflater.from(context).inflate(layoutResId, this, false)
 
+fun Activity.toast(message: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(this, message, duration).show()
+}
 

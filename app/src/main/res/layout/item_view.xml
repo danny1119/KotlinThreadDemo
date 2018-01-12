@@ -22,19 +22,18 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_user"
-            tools:layout_editor_absoluteX="6dp" />
+            android:src="@drawable/ic_user" />
 
         <TextView
             android:id="@+id/userName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="5dp"
             android:ellipsize="end"
             android:lines="1"
             android:maxWidth="200dp"
-            android:textAllCaps="true"
+            android:text="Dfc"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -46,7 +45,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:textColor="@color/colorAccent"
+            android:text="33"
+            android:textColor="@android:color/darker_gray"
             android:textSize="13sp"
             app:layout_constraintStart_toStartOf="@+id/userName"
             app:layout_constraintTop_toBottomOf="@+id/userName" />

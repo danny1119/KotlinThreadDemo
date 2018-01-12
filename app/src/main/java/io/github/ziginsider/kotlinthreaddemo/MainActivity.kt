@@ -8,9 +8,11 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
+import io.github.ziginsider.kotlinthreaddemo.adapters.setUp
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.item_view.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.concurrent.scheduleAtFixedRate
@@ -23,8 +25,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-
-        println(MockDataProvider().data.toString())
 
         println(listOf(2,7,4,2,3,1,1,5,55,4,333,4,5,7,1,1,1,444)
                 .qSort()
@@ -44,6 +44,16 @@ class MainActivity : AppCompatActivity() {
 
         startConcurent(textView)
 
+        val users = MockDataProvider().data
+
+        recyclerView.setUp(users, R.layout.item_view, {
+            userName.text = it.name
+            userAge.text = it.age.toString()
+        }, {
+            toast("Clicked $id $name $age")
+        })
+
+
     }
 
     fun printFigures() {
@@ -57,8 +67,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startConcurent(textView: TextView) {
-
-        //val textView : TextView = findViewById(R.id.textView)
 
         val cp = startConsumerProducer()
 

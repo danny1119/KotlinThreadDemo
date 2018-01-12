@@ -28,22 +28,22 @@ class Kadapter<T>(items: List<T>,
     override fun onItemClick(itemView: View, position: Int) {
         itemList[position].itemClick()
     }
+}
 
-    fun <T> RecyclerView.setUp(items: List<T>,
-                               layoutResId: Int,
-                               bindHolder: View.(T) -> Unit,
-                               itemClick: T.() -> Unit = {},
-                               manager: RecyclerView.LayoutManager = LinearLayoutManager(this.context))
+fun <T> RecyclerView.setUp(items: List<T>,
+                           layoutResId: Int,
+                           bindHolder: View.(T) -> Unit,
+                           itemClick: T.() -> Unit = {},
+                           manager: RecyclerView.LayoutManager = LinearLayoutManager(this.context))
         : Kadapter<T> {
-        val kadapter by lazy {
-            Kadapter(items, layoutResId, {
-                bindHolder(it)
-            }, {
-                itemClick()
-            })
-        }
-        layoutManager = manager
-        adapter = kadapter
-        return kadapter
+    val kadapter by lazy {
+        Kadapter(items, layoutResId, {
+            bindHolder(it)
+        }, {
+            itemClick()
+        })
     }
+    layoutManager = manager
+    adapter = kadapter
+    return kadapter
 }
