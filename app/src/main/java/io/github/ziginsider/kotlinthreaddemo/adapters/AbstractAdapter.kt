@@ -20,13 +20,23 @@ abstract class AbstractAdapter<T> constructor(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = parent inflate layoutResId
-        return Holder(view)
+        val viewHolder = Holder(view)
+        val itemView = viewHolder.itemView
+        itemView.setOnClickListener {
+            val adapterPosition = viewHolder.adapterPosition
+            if (adapterPosition != RecyclerView.NO_POSITION) {
+                onItemClick(itemView, adapterPosition)
+            }
+        }
+        return viewHolder
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val item = itemList[position]
         holder.itemView.bind(item)
     }
+
+    protected open fun onItemClick(itemView: View, position: Int) {}
 
     protected open fun View.bind(item: T) {}
 }
