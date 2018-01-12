@@ -1,5 +1,7 @@
 package io.github.ziginsider.kotlinthreaddemo.adapters
 
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.View
 
 /**
@@ -12,5 +14,20 @@ class Kadapter<T>(items: List<T>,
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.itemView.bindHolder(itemList[position])
+    }
+
+    fun <T> RecyclerView.setUp(items: List<T>,
+                               layoutResId: Int,
+                               bindHolder: View.(T) -> Unit,
+                               manager: RecyclerView.LayoutManager = LinearLayoutManager(this.context))
+        : Kadapter<T> {
+        val kadapter by lazy {
+            Kadapter(items, layoutResId, {
+                bindHolder(it)
+            })
+        }
+        layoutManager = manager
+        adapter = kadapter
+        return kadapter
     }
 }
