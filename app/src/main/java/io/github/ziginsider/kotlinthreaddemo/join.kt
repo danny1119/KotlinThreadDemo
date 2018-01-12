@@ -1,9 +1,14 @@
 package io.github.ziginsider.kotlinthreaddemo
 
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+
 /**
  * Created by zigin on 09.01.2018.
  */
 
+//print list
 fun <T> Collection<T>.joinToString(
         separator: String = ", ",
         prefix: String = "",
@@ -20,6 +25,7 @@ fun <T> Collection<T>.joinToString(
     return result.toString()
 }
 
+//QuickSort
 fun <T : Comparable<T>> Collection<T>.qSort(): Collection<T> =
     if (size < 2) this
     else {
@@ -27,5 +33,9 @@ fun <T : Comparable<T>> Collection<T>.qSort(): Collection<T> =
         val (smaler, greater) = drop(1).partition { it <= pivot }
         smaler.qSort() + pivot + greater.qSort()
     }
+
+//inflate view
+infix fun ViewGroup.inflate(layoutResId: Int): View =
+        LayoutInflater.from(context).inflate(layoutResId, this, false)
 
 
