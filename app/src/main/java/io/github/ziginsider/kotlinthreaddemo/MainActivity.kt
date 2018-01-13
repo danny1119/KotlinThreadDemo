@@ -49,23 +49,30 @@ class MainActivity : AppCompatActivity() {
 
         val users = MockDataProvider().data
 
-        initListLazy(users)
-        initListApply(users)
-        initListApply(users)
-        initListLazy(users)
-        initListApply(users)
-        initListLazy(users)
-        initListApply(users)
-        initListLazy(users)
-        initListApply(users)
-        initListLazy(users)
-        initListApply(users)
-        initListApply(users)
-        initListApply(users)
-        initListLazy(users)
-        initListLazy(users)
-        initListLazy(users)
-        initListApply(users)
+        //initListApply(users)
+
+        recyclerView.setUpIm(users, R.layout.item_view, {
+            when(it.age) {
+                in 0..7 -> shotImage.setImageResource(R.drawable.user12)
+                in 8..15 -> shotImage.setImageResource(R.drawable.user9)
+                in 16..23 -> shotImage.setImageResource(R.drawable.user11)
+                in 24..30 -> shotImage.setImageResource(R.drawable.user3)
+                in 31..39 -> shotImage.setImageResource(R.drawable.user7)
+                in 40..50 -> shotImage.setImageResource(R.drawable.user8)
+                in 51..58 -> shotImage.setImageResource(R.drawable.user4)
+                in 59..67 -> shotImage.setImageResource(R.drawable.user1)
+                in 68..76 -> shotImage.setImageResource(R.drawable.user6)
+                in 77..85 -> shotImage.setImageResource(R.drawable.user2)
+                in 85..92 -> shotImage.setImageResource(R.drawable.user10)
+                in 93..100 -> shotImage.setImageResource(R.drawable.user5)
+            }
+            userName.text = it.name
+            userAge.text = it.age.toString()
+        }, {
+            toast("Clicked $id $name $age !!!")
+        })
+
+
 
 
     }
