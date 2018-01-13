@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import io.github.ziginsider.kotlinthreaddemo.adapters.setUp
+import io.github.ziginsider.kotlinthreaddemo.adapters.setUpIm
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -16,6 +17,8 @@ import kotlinx.android.synthetic.main.item_view.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.concurrent.scheduleAtFixedRate
+import kotlin.system.measureNanoTime
+import kotlin.system.measureTimeMillis
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,38 +29,66 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        println(listOf(2,7,4,2,3,1,1,5,55,4,333,4,5,7,1,1,1,444)
-                .qSort()
-                .joinToString(
-                separator = ", ",
-                prefix = "# ",
-                postfix = ";"))
-
-        repeat(5) {
-            Log.d(TAG, "Time ${it*2} ")
-        }
-
-        fizzBuzzRightOrder()
-        fizzBuzzInverseOrder()
-
-        printFigures()
-
-        startConcurent(textView)
+//        println(listOf(2,7,4,2,3,1,1,5,55,4,333,4,5,7,1,1,1,444)
+//                .qSort()
+//                .joinToString(
+//                separator = ", ",
+//                prefix = "# ",
+//                postfix = ";"))
+//
+//        repeat(5) {
+//            Log.d(TAG, "Time ${it*2} ")
+//        }
+//
+//        fizzBuzzRightOrder()
+//        fizzBuzzInverseOrder()
+//
+//        printFigures()
+//
+//        startConcurent(textView)
 
         val users = MockDataProvider().data
 
-        recyclerView.setUp(users, R.layout.item_view, {
-            userName.text = it.name
-            userAge.text = it.age.toString()
-        }, {
-            toast("Clicked $id $name $age")
-        })
+        initListLazy(users)
+        initListApply(users)
+        initListApply(users)
+        initListLazy(users)
+        initListApply(users)
+        initListLazy(users)
+        initListApply(users)
+        initListLazy(users)
+        initListApply(users)
+        initListLazy(users)
+        initListApply(users)
+        initListApply(users)
+        initListApply(users)
+        initListLazy(users)
+        initListLazy(users)
+        initListLazy(users)
+        initListApply(users)
 
 
     }
 
+    fun initListLazy(users: ArrayList<User>) = println("Time SetUp() with lazy() = " +
+            "${ measureNanoTime { recyclerView.setUp(users, R.layout.item_view, {
+        userName.text = it.name
+        userAge.text = it.age.toString()
+    }, {
+        toast("Clicked $id $name $age")
+    }) }}")
+
+    fun initListApply(users: ArrayList<User>) = println("Time SetUpIm() with apply() = " +
+            "${ measureNanoTime { recyclerView.setUpIm(users, R.layout.item_view, {
+        userName.text = it.name
+        userAge.text = it.age.toString()
+    }, {
+        toast("Clicked $id $name $age im")
+    }) }}")
+
+
     fun printFigures() {
-        val list = ArrayList<Int>();
+        val list = ArrayList<Int>()
         for (i in 0..99) {
             list.add(i*i)
         }

@@ -31,10 +31,10 @@ class Kadapter<T>(items: List<T>,
 }
 
 fun <T> RecyclerView.setUp(items: List<T>,
-                           layoutResId: Int,
-                           bindHolder: View.(T) -> Unit,
-                           itemClick: T.() -> Unit = {},
-                           manager: RecyclerView.LayoutManager = LinearLayoutManager(this.context))
+                            layoutResId: Int,
+                            bindHolder: View.(T) -> Unit,
+                            itemClick: T.() -> Unit = {},
+                            manager: RecyclerView.LayoutManager = LinearLayoutManager(this.context))
         : Kadapter<T> {
     val kadapter by lazy {
         Kadapter(items, layoutResId, {
@@ -46,4 +46,20 @@ fun <T> RecyclerView.setUp(items: List<T>,
     layoutManager = manager
     adapter = kadapter
     return kadapter
+}
+
+fun <T> RecyclerView.setUpIm(items: List<T>,
+                              layoutResId: Int,
+                              bindHolder: View.(T) -> Unit,
+                              itemClick: T.() -> Unit = {},
+                              manager: RecyclerView.LayoutManager = LinearLayoutManager(this.context))
+        : Kadapter<T> {
+    return Kadapter(items, layoutResId, {
+        bindHolder(it)
+    }, {
+        itemClick()
+    }).apply {
+        layoutManager = manager
+        adapter = this
+    }
 }
