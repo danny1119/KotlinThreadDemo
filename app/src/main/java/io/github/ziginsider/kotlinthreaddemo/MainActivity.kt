@@ -72,16 +72,16 @@ class MainActivity : AppCompatActivity() {
 
     fun initListLazy(users: ArrayList<User>) = println("Time SetUp() with lazy() = " +
             "${ measureNanoTime { recyclerView.setUp(users, R.layout.item_view, {
-        userName.text = it.name
-        userAge.text = it.age.toString()
+            userName.text = it.name
+            userAge.text = it.age.toString()
     }, {
         toast("Clicked $id $name $age")
     }) }}")
 
     fun initListApply(users: ArrayList<User>) = println("Time SetUpIm() with apply() = " +
             "${ measureNanoTime { recyclerView.setUpIm(users, R.layout.item_view, {
-        userName.text = it.name
-        userAge.text = it.age.toString()
+            userName.text = it.name
+            userAge.text = it.age.toString()
     }, {
         toast("Clicked $id $name $age im")
     }) }}")

@@ -11,10 +11,13 @@ import io.github.ziginsider.kotlinthreaddemo.inflate
 
 abstract class AbstractAdapter<T> constructor(
         protected var itemList: List<T>,
-        private val layoutResId: Int)
+        private val layoutResId: Int,
+        private val bindHolder: View.(T) -> Unit)
     : RecyclerView.Adapter<AbstractAdapter.Holder>() {
 
     class Holder (itemView: View) : RecyclerView.ViewHolder(itemView)
+
+    private var itemClick: T.() -> Unit = {}
 
     override fun getItemCount(): Int = itemList.size
 
@@ -32,11 +35,10 @@ abstract class AbstractAdapter<T> constructor(
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        val item = itemList[position]
-        holder.itemView.bind(item)
+        holder.itemView.bindHolder(itemList[position])
     }
 
-    protected open fun onItemClick(itemView: View, position: Int) {}
-
-    protected open fun View.bind(item: T) {}
+    protected open fun onItemClick(itemView: View, position: Int) {
+        itemList[position].itemClick()
+    }
 }

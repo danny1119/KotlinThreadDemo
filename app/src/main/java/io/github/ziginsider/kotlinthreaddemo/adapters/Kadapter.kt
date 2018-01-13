@@ -9,8 +9,8 @@ import android.view.View
  */
 class Kadapter<T>(items: List<T>,
                   layoutResId: Int,
-                  private val bindHolder: View.(T) -> Unit)
-    : AbstractAdapter<T>(items, layoutResId) {
+                  bindHolder: View.(T) -> Unit)
+    : AbstractAdapter<T>(items, layoutResId, bindHolder) {
 
     private var itemClick: T.() -> Unit = {}
 
@@ -21,13 +21,13 @@ class Kadapter<T>(items: List<T>,
         this.itemClick = itemClick
     }
 
-    override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.itemView.bindHolder(itemList[position])
-    }
-
     override fun onItemClick(itemView: View, position: Int) {
         itemList[position].itemClick()
     }
+
+//    override fun onBindViewHolder(holder: Holder, position: Int) {
+//        super.onBindViewHolder(holder, position)
+//    }
 }
 
 fun <T> RecyclerView.setUp(items: List<T>,
@@ -63,3 +63,4 @@ fun <T> RecyclerView.setUpIm(items: List<T>,
         adapter = this
     }
 }
+
