@@ -1,5 +1,6 @@
 package io.github.ziginsider.kotlinthreaddemo.adapters
 
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -40,5 +41,17 @@ abstract class AbstractAdapter<T> constructor(
 
     protected open fun onItemClick(itemView: View, position: Int) {
         itemList[position].itemClick()
+    }
+
+    //diffUtil
+
+    private fun updateAdapterWithDiffResult(result: DiffUtil.DiffResult) =
+            result.dispatchUpdatesTo(this)
+
+    private fun calculateDiff(newItems: List<T>) =
+            DiffUtil.calculateDiff(DiffUtilCallback(itemList, newItems))
+
+    fun update(newItems: List<T>) {
+        updateAdapterWithDiffResult(calculateDiff(newItems))
     }
 }
