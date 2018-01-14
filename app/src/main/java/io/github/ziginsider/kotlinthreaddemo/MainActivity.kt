@@ -71,10 +71,6 @@ class MainActivity : AppCompatActivity() {
         }, {
             toast("Clicked $id $name $age !!!")
         })
-
-
-
-
     }
 
     fun initListLazy(users: ArrayList<User>) = println("Time SetUp() with lazy() = " +
