@@ -71,6 +71,16 @@ class MainActivity : AppCompatActivity() {
         }, {
             toast("Clicked $id $name $age !!!")
         })
+
+        bottomNavigation.setOnNavigationItemReselectedListener {
+            item: MenuItem ->
+            when (item.itemId) {
+                R.id.sortName -> {}
+                R.id.sortAge -> {}
+                R.id.delEven -> {}
+            }
+            true
+        }
     }
 
     fun initListLazy(users: ArrayList<User>) = println("Time SetUp() with lazy() = " +
