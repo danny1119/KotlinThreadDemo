@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
+import io.github.ziginsider.kotlinthreaddemo.adapters.Kadapter
 import io.github.ziginsider.kotlinthreaddemo.adapters.setUp
 import io.github.ziginsider.kotlinthreaddemo.adapters.setUpIm
 
@@ -18,11 +19,12 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.concurrent.scheduleAtFixedRate
 import kotlin.system.measureNanoTime
-import kotlin.system.measureTimeMillis
 
 class MainActivity : AppCompatActivity() {
 
     private val TAG = "Zig"
+
+    private var recyclerAdapter: Kadapter<User>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +53,32 @@ class MainActivity : AppCompatActivity() {
 
         //initListApply(users)
 
-        recyclerView.setUpIm(users, R.layout.item_view, {
+        setUpRecyclerView(users)
+
+        bottomNavigation.setOnNavigationItemReselectedListener {
+            item: MenuItem ->
+            when (item.itemId) {
+                R.id.sortName -> {
+                    users.sortBy { it.name }
+                    updateAdapter(users)
+                }
+                R.id.sortAge -> {
+                    users.sortBy { it.age }
+                    setUpRecyclerView(users)
+                    updateAdapter(users)
+                }
+                R.id.delEven -> {}
+            }
+            true
+        }
+    }
+
+    private fun updateAdapter(items: List<User>) {
+        recyclerAdapter?.update(items) ?: setUpRecyclerView(items)
+    }
+
+    private fun setUpRecyclerView(items: List<User>) {
+        recyclerAdapter = recyclerView.setUpIm(items, R.layout.item_view, {
             when(it.age) {
                 in 0..7 -> shotImage.setImageResource(R.drawable.user12)
                 in 8..15 -> shotImage.setImageResource(R.drawable.user9)
@@ -71,17 +98,10 @@ class MainActivity : AppCompatActivity() {
         }, {
             toast("Clicked $id $name $age !!!")
         })
+        recyclerView.scheduleLayoutAnimation()
 
-        bottomNavigation.setOnNavigationItemReselectedListener {
-            item: MenuItem ->
-            when (item.itemId) {
-                R.id.sortName -> {}
-                R.id.sortAge -> {}
-                R.id.delEven -> {}
-            }
-            true
-        }
     }
+
 
     fun initListLazy(users: ArrayList<User>) = println("Time SetUp() with lazy() = " +
             "${ measureNanoTime { recyclerView.setUp(users, R.layout.item_view, {

@@ -63,4 +63,3 @@ fun <T> RecyclerView.setUpIm(items: List<T>,
         adapter = this
     }
 }
-
