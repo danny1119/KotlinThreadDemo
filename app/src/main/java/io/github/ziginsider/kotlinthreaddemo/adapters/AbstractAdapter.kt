@@ -10,7 +10,7 @@ import io.github.ziginsider.kotlinthreaddemo.inflate
  * Created by zigin on 12.01.2018.
  */
 
-abstract class AbstractAdapter<T> constructor(
+abstract class AbstractAdapter<T> (
         protected var itemList: List<T>,
         private val layoutResId: Int,
         private val bindHolder: View.(T) -> Unit)
