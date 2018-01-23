@@ -13,22 +13,10 @@ class Kadapter<T>(items: List<T>,
                   private var itemClick: T.() -> Unit = {})
     : AbstractAdapter<T>(items, layoutResId, bindHolder) {
 
-    //private var itemClick: T.() -> Unit = {}
-
-//    constructor(items: List<T>,
-//                layoutResId: Int,
-//                bindHolder: View.(T) -> Unit,
-//                itemClick: T.() -> Unit = {}) : this(items, layoutResId, bindHolder) {
-//        this.itemClick = itemClick
-//    }
-
     override fun onItemClick(itemView: View, position: Int) {
         itemList[position].itemClick()
     }
-
-//    override fun onBindViewHolder(holder: Holder, position: Int) {
-//        super.onBindViewHolder(holder, position)
-//    }
+    
 }
 
 fun <T> RecyclerView.setUp(items: List<T>,

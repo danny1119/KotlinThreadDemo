@@ -24,7 +24,6 @@ class MockDataProvider {
             val index = (random.nextFloat() * lowerAlphabet.length).toInt()
             result.append(lowerAlphabet[index])
         }
-
         return result.toString()
     }
 
@@ -40,5 +39,4 @@ class MockDataProvider {
             }
         }
     }
-
 }
