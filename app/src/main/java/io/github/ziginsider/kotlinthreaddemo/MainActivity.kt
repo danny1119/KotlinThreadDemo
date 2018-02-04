@@ -11,10 +11,13 @@ import android.widget.TextView
 import io.github.ziginsider.kotlinthreaddemo.adapters.Kadapter
 import io.github.ziginsider.kotlinthreaddemo.adapters.setUp
 import io.github.ziginsider.kotlinthreaddemo.adapters.setUpIm
+import io.github.ziginsider.kotlinthreaddemo.model.Destination
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.item_view.view.*
+import kotlinx.serialization.Mapper
+import kotlinx.serialization.json.JSON
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.concurrent.scheduleAtFixedRate
@@ -51,6 +54,7 @@ class MainActivity : AppCompatActivity() {
 
         val users = MockDataProvider().data
 
+
         //initListApply(users)
 
         setUpRecyclerView(users)
@@ -61,6 +65,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.sortName -> {
                     users.sortBy { it.name }
                     updateAdapter(users)
+
                 }
                 R.id.sortAge -> {
                     users.sortBy { it.age }
@@ -71,6 +76,26 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+
+        val delhi = Destination(name = "Delhi", country = "India", code = 0)
+        val delhiAsString = JSON.stringify(delhi)
+        println(delhiAsString)
+
+        val newYork = JSON.parse<Destination>(
+                "{\"name\":\"New York\",\"country\":\"USA\",\"code\":3}"
+        )
+        println(newYork)
+
+        val paris = JSON.unquoted.parse<Destination>(
+                "{name:Paris,country:France,code:10}")
+        println(paris)
+
+        val barcelona = JSON.unquoted.parse<Destination>(
+                "{name:Barcelona,country:Spain,code:5,isMetro:true}")
+        println(barcelona)
+
+        val newYorkAsMap : Map<String,Any> = Mapper.map(newYork) // Mapping
+        val newNewYork = Mapper.unmap<Destination>(newYorkAsMap) //Unmapping
     }
 
     private fun updateAdapter(items: List<User>) {
@@ -115,6 +140,7 @@ class MainActivity : AppCompatActivity() {
             "${ measureNanoTime { recyclerView.setUpIm(users, R.layout.item_view, {
             userName.text = it.name
             userAge.text = it.age.toString()
+
     }, {
         toast("Clicked $id $name $age im")
     }) }}")
@@ -124,6 +150,7 @@ class MainActivity : AppCompatActivity() {
         val list = ArrayList<Int>()
         for (i in 0..99) {
             list.add(i*i)
+
         }
         for((index, element) in list.withIndex()) {
             println("$index: $element")
