@@ -12,6 +12,7 @@ import io.github.ziginsider.kotlinthreaddemo.adapters.Kadapter
 import io.github.ziginsider.kotlinthreaddemo.adapters.setUp
 import io.github.ziginsider.kotlinthreaddemo.adapters.setUpIm
 import io.github.ziginsider.kotlinthreaddemo.delegate.property.PersonFirst
+import io.github.ziginsider.kotlinthreaddemo.delegate.property.PersonFourth
 import io.github.ziginsider.kotlinthreaddemo.delegate.property.PersonSecond
 import io.github.ziginsider.kotlinthreaddemo.delegate.property.PersonThird
 import io.github.ziginsider.kotlinthreaddemo.model.Destination
@@ -132,6 +133,15 @@ class MainActivity : AppCompatActivity() {
         p3.age = 30
         println("Little time has passed...\n")
         p3.salary = 3100
+
+        val p4 = PersonFourth("Aliaksei", 31, 2000)
+        p4.addPropertyChangeListener(PropertyChangeListener { event ->
+            println("Property ${event.propertyName} changed "
+                    + "from ${event.oldValue} to ${event.newValue}")
+        })
+        p4.age = 28
+        println("Little time has passed...\n")
+        p4.salary = 3400
 
     }
 
