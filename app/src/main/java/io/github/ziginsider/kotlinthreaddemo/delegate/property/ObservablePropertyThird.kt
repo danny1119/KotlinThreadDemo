@@ -9,9 +9,7 @@ import kotlin.reflect.KProperty
 
 class ObservablePropertyThird(var propValue: Int,
                               val changeSupport: PropertyChangeSupport) {
-
     operator fun getValue(p: PersonThird, prop: KProperty<*>): Int = propValue
-
     operator fun setValue(p: PersonThird, prop: KProperty<*>, newValue: Int) {
         val oldValue = propValue
         propValue = newValue
