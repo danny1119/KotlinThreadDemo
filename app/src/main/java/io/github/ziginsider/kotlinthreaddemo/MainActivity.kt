@@ -12,6 +12,7 @@ import io.github.ziginsider.kotlinthreaddemo.adapters.Kadapter
 import io.github.ziginsider.kotlinthreaddemo.adapters.setUp
 import io.github.ziginsider.kotlinthreaddemo.adapters.setUpIm
 import io.github.ziginsider.kotlinthreaddemo.delegate.property.PersonFirst
+import io.github.ziginsider.kotlinthreaddemo.delegate.property.PersonSecond
 import io.github.ziginsider.kotlinthreaddemo.model.Destination
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -112,6 +113,15 @@ class MainActivity : AppCompatActivity() {
         p.age = 32
         println("Little time has passed...\n")
         p.salary = 2500
+
+        val p2 = PersonSecond("Aliaksei", 31, 2100)
+        p2.addPropertyChangeListener(PropertyChangeListener { event ->
+            println("Property ${event.propertyName} changed "
+                    + "from ${event.oldValue} to ${event.newValue}")
+        })
+        p2.age = 33
+        println("Little time has passed...\n")
+        p2.salary = 3000
 
     }
 
