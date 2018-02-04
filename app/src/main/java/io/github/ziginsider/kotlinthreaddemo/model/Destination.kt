@@ -12,7 +12,6 @@ import kotlinx.serialization.Transient
 @Serializable
 data class Destination(
         var name: String? = "",
-        @SerialName("rodina")
         var country: String? = "",
         var code: Int = 0,
         @Optional

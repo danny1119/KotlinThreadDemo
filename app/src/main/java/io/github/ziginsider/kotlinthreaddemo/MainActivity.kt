@@ -11,6 +11,7 @@ import android.widget.TextView
 import io.github.ziginsider.kotlinthreaddemo.adapters.Kadapter
 import io.github.ziginsider.kotlinthreaddemo.adapters.setUp
 import io.github.ziginsider.kotlinthreaddemo.adapters.setUpIm
+import io.github.ziginsider.kotlinthreaddemo.delegate.property.PersonFirst
 import io.github.ziginsider.kotlinthreaddemo.model.Destination
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -18,6 +19,7 @@ import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.item_view.view.*
 import kotlinx.serialization.Mapper
 import kotlinx.serialization.json.JSON
+import java.beans.PropertyChangeListener
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.concurrent.scheduleAtFixedRate
@@ -96,6 +98,21 @@ class MainActivity : AppCompatActivity() {
 
         val newYorkAsMap : Map<String,Any> = Mapper.map(newYork) // Mapping
         val newNewYork = Mapper.unmap<Destination>(newYorkAsMap) //Unmapping
+
+
+        //Person First
+
+        val p = PersonFirst("Aiaksei", 31, 2000)
+        p.addPropertyChangeListener(
+                PropertyChangeListener { event ->
+                    println("Property ${event.propertyName} changed "
+                    + "from ${event.oldValue} to ${event.newValue}")
+                }
+        )
+        p.age = 32
+        println("Little time has passed...\n")
+        p.salary = 2500
+
     }
 
     private fun updateAdapter(items: List<User>) {
