@@ -39,13 +39,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-//        println(listOf(2,7,4,2,3,1,1,5,55,4,333,4,5,7,1,1,1,444)
-//                .qSort()
-//                .joinToString(
-//                separator = ", ",
-//                prefix = "# ",
-//                postfix = ";"))
-//
+        println(listOf(2,7,4,2,3,1,1,5,55,4,333,4,5,7,1,1,1,444)
+                .qSort()
+                .joinToString(
+                separator = ", ",
+                prefix = "# ",
+                postfix = ";",
+                transform = { it.toString()zz })
+        )
+
 //        repeat(5) {
 //            Log.d(TAG, "Time ${it*2} ")
 //        }
@@ -216,7 +218,8 @@ class MainActivity : AppCompatActivity() {
                     textView.text = cp.list.joinToString(
                             separator = ", ",
                             prefix = "# ",
-                            postfix = ";")
+                            postfix = ";",
+                            transform = { it.toString().toUpperCase() })
                 })
             }
 
