@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                 separator = ", ",
                 prefix = "# ",
                 postfix = ";",
-                transform = { it.toString()zz })
+                transform = { it.toString() })
         )
 
 //        repeat(5) {
