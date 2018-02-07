@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
 //
 //        printFigures()
 //
-//        startConcurent(textView)
+        startConcurent(textView)
 
         val users = MockDataProvider().data
 
