@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import java.util.concurrent.locks.Lock
 
 /**
  * Created by zigin on 09.01.2018.
@@ -45,5 +46,16 @@ infix fun ViewGroup.inflate(layoutResId: Int): View =
 
 fun Activity.toast(message: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(this, message, duration).show()
+}
+
+//synchronized
+inline fun <T> synchronized(lock: Lock, action: () -> T): T {
+    lock.lock()
+    try {
+        return action()
+    }
+    finally {
+        lock.unlock()
+    }
 }
 

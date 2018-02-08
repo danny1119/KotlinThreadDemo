@@ -24,8 +24,12 @@ import kotlinx.serialization.Mapper
 import kotlinx.serialization.json.JSON
 import java.beans.PropertyChangeListener
 import java.util.*
+import java.util.concurrent.TimeUnit
+import java.util.concurrent.locks.Condition
+import java.util.concurrent.locks.Lock
 import kotlin.collections.ArrayList
 import kotlin.concurrent.scheduleAtFixedRate
+import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
 import kotlin.system.measureNanoTime
 
 class MainActivity : AppCompatActivity() {
@@ -145,6 +149,44 @@ class MainActivity : AppCompatActivity() {
         println("Little time has passed...\n")
         p4.salary = 3400
 
+
+        val lock = LockIm()
+
+        foo(lock)
+    }
+
+    private fun foo(l: Lock) {
+        println("Before sync")
+        synchronized(l) {
+            println("Action")
+        }
+        println("After sync")
+    }
+
+    class LockIm : Lock {
+        override fun lock() {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun tryLock(p0: Long, p1: TimeUnit?): Boolean {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun unlock() {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun lockInterruptibly() {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun newCondition(): Condition {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
+
+        override fun tryLock(): Boolean {
+            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        }
     }
 
     private fun updateAdapter(items: List<User>) {
