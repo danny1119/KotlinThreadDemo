@@ -1,7 +1,9 @@
 package io.github.ziginsider.kotlinthreaddemo
 
 import android.app.Activity
+import android.support.v7.widget.AppCompatEditText
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -59,3 +61,17 @@ inline fun <T> synchronized(lock: Lock, action: () -> T): T {
     }
 }
 
+//
+fun AppCompatEditText.setRightDrawableOnTouchListener(func: AppCompatEditText.() -> Unit) {
+    setOnTouchListener { _, event ->
+        var consumed = false
+        if (event.action == MotionEvent.ACTION_UP) {
+            val drawable = compoundDrawables[2]
+            if (event.rawX >= (right - drawable.bounds.width())) {
+                func()
+                consumed = true
+            }
+        }
+        consumed
+    }
+}

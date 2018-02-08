@@ -150,9 +150,6 @@ class MainActivity : AppCompatActivity() {
         p4.salary = 3400
 
 
-        val lock = LockIm()
-
-        foo(lock)
     }
 
     private fun foo(l: Lock) {
